@@ -89,8 +89,7 @@ class TimelineCircles {
      //  if some elements have been removed or added, we need to use 'join' rather than enter and append
       vis.circles = vis.chart.selectAll('circle')
           .data(vis.data)
-          .enter()
-          .append('circle')
+          .join('circle')
          .attr('fill', (d) => vis.colorPalette(d.category) )
           .attr('opacity', .8)
           .attr('stroke', "gray")
@@ -110,7 +109,15 @@ class TimelineCircles {
             .style('left', (event.pageX + vis.config.tooltipPadding) + 'px')   
             .style('top', (event.pageY + vis.config.tooltipPadding) + 'px')
             .html(`
-              Hello I am a tooltip.  Do better than this. 
+            <div class="tooltip-title">${d.display_name}</div>
+            <div><i>${d.year}</i></div>
+            <ul>
+              <li>${d.start} </li>
+              <li>${d.mid}</li> 
+              <li>${d.end}</li>
+              <li>${d.category}</li>
+              <li>${d.cost}</li>
+            </ul>
             `);
         })
         .on('mouseleave', () => {
